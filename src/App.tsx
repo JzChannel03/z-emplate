@@ -1,5 +1,4 @@
-import For from "./components/ui/For";
-import If from "./components/ui/If";
+import { For, If } from "@z-emplate/components/ui";
 
 function Hr() {
   return <hr className="border-4 border-red-500" />;
