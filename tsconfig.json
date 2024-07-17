@@ -21,9 +21,12 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@app/*": ["./src/*"],
-      "@z-emplate/*": ["./@z-emplate/*"]
+      "@z-emplate/*": [
+        "./@z-emplate/services/index.ts",
+        "./@z-emplate/components/ui/index.ts"
+      ]
     }
   },
-  "include": ["src", "@z-emplate/components"],
+  "include": ["src", "@z-emplate"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
