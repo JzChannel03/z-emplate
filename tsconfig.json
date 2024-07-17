@@ -21,10 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@app/*": ["./src/*"],
-      "@z-emplate/*": [
-        "./@z-emplate/services/index.ts",
-        "./@z-emplate/components/ui/index.ts"
-      ]
+      "@z-emplate/*": ["./@z-emplate/*"]
     }
   },
   "include": ["src", "@z-emplate"],
