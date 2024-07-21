@@ -1,4 +1,4 @@
-export type ParentComponent<T> = Component<
+export type ParentComponent<T = object> = Component<
   { children: React.ReactNode | React.ReactNode[] } & T
 >;
 

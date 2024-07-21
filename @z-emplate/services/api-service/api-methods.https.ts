@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { paramsObjectToQueryString } from "../../utils/url.functions";
-import { OptionalParams } from "../../interfaces/https.interfaces";
+import { OptionalParams } from "../../interfaces/https";
 
 export const HttpMethods = (axiosInstance: AxiosInstance) => {
   const buildUrlWithParams = (url: string, params?: OptionalParams) => {

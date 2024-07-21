@@ -1,10 +1,16 @@
-import { OptionalParams } from "../interfaces/https.interfaces";
-import useAxiosConfig from "../services/api-service/api-config.axios";
+import { OptionalParams } from "../interfaces/https";
 import { HttpMethods } from "../services/api-service/api-methods.https";
+import AxiosInstance from "../services/api-service/api-config.axios";
 
-export const useApiService = () => {
+export const useApiService = ({
+  configSelected,
+}: {
+  configSelected?: number;
+}) => {
+  console.log("configByDefault: ", configSelected);
+  // Here is the problem
   //TODO: Pass as param the selected api url with the default option selected
-  const axiosInstance = useAxiosConfig();
+  const axiosInstance = AxiosInstance();
   const { GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS } =
     HttpMethods(axiosInstance);
 
