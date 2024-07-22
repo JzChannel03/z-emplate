@@ -1,11 +1,7 @@
 import axios from "axios";
-import ApiStore from "./api.store";
+import { HttpInformation } from "../../interfaces/https";
 
-const AxiosInstance = () => {
-  const {
-    configByDefault: { config },
-  } = ApiStore.getInstance();
-
+const AxiosInstance = ({ config }: HttpInformation) => {
   console.log(config);
 
   const axiosConfig = axios.create({

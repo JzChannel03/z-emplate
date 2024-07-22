@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { If } from "@z-emplate/components/ui";
+import { For, If } from "@z-emplate/components/ui";
 import { useApiService } from "@z-emplate/hooks/api-service.hooks";
 import { useEffect, useState } from "react";
 
@@ -19,7 +19,6 @@ function App() {
 
   useEffect(() => {
     get<Pokemon>("pokemon", { limit: 10, offset: 0 }).then((res) => {
-      console.log(res);
       setPokemon2(res.results);
     });
   }, []);
@@ -31,6 +30,13 @@ function App() {
       <If condition={teMostrare} altChildren={<p>No hay hijos</p>}>
         <h4>Te estoy mostrando</h4>
       </If>
+      <For items={pokemon2}>
+        {(pokemon) => (
+          <div>
+            <p>{pokemon.name}</p>
+          </div>
+        )}
+      </For>
       <Hr />
     </main>
   );

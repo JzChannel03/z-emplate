@@ -1,6 +1,8 @@
 import { OptionalParams } from "../interfaces/https";
 import { HttpMethods } from "../services/api-service/api-methods.https";
 import AxiosInstance from "../services/api-service/api-config.axios";
+import { ApiConfigContext } from "@z-emplate/providers/ApiServices.provider";
+import { useContext } from "react";
 
 export const useApiService = ({
   configSelected,
@@ -8,9 +10,17 @@ export const useApiService = ({
   configSelected?: number;
 }) => {
   console.log("configByDefault: ", configSelected);
-  // Here is the problem
-  //TODO: Pass as param the selected api url with the default option selected
-  const axiosInstance = AxiosInstance();
+
+  const { configByDefault, setConfigByDefault } = useContext(ApiConfigContext);
+
+  //TODO: Mejorar lógica de selección de la configuración
+  if (configSelected !== undefined) {
+    setConfigByDefault(configSelected);
+  }
+  const axiosInstance = AxiosInstance(
+    configByDefault ?? { config: { baseUrl: "https://pokeapi.co/api/v2/" } }
+  );
+  console.log(configByDefault);
   const { GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS } =
     HttpMethods(axiosInstance);
 
