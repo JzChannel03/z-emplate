@@ -18,8 +18,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@app/*": ["./src/*"],
+      "@z-emplate/*": ["./@z-emplate/*"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "@z-emplate"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
