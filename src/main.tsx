@@ -5,7 +5,9 @@ import "./index.css";
 import ZemplateProvider from "@z-emplate/providers/principal/Zemplate.providers.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <ZemplateProvider>
-    <App />
-  </ZemplateProvider>
+  <React.StrictMode>
+    <ZemplateProvider>
+      <App />
+    </ZemplateProvider>
+  </React.StrictMode>
 );

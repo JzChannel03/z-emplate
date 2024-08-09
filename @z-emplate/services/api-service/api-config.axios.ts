@@ -2,8 +2,6 @@ import axios from "axios";
 import { HttpInformation } from "../../interfaces/https";
 
 const AxiosInstance = ({ config }: HttpInformation) => {
-  console.log(config);
-
   const axiosConfig = axios.create({
     baseURL: config.baseUrl,
     headers: {

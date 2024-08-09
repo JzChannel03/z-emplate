@@ -1,18 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { z } from "zod";
 import ApiStore from "@z-emplate/services/api-service/api.store";
 import { HttpInformationList } from "@z-emplate/interfaces/https";
 import { ParentComponent } from "@z-emplate/interfaces/component";
-import { createContext, useEffect, useState } from "react";
-
-export const ApiConfigContext = createContext<ApiStore>({} as ApiStore);
+import { useMemo } from "react";
 
 const ApiConfigProvider: ParentComponent<HttpInformationList> = ({
   children,
   httpInformationList,
 }) => {
-  const [apiStore, setApiStore] = useState<ApiStore>(ApiStore.getInstance());
-  useEffect(() => {
+  const apiStore = ApiStore.getInstance();
+
+  const parsedConfig = useMemo(() => {
     const configSchema = z.array(
       z.object({
         config: z.object({
@@ -21,21 +19,13 @@ const ApiConfigProvider: ParentComponent<HttpInformationList> = ({
         }),
       })
     );
-    const parsedConfig = configSchema.parse(httpInformationList);
+    return configSchema.parse(httpInformationList);
+  }, [httpInformationList]);
 
-    setApiStore(() => {
-      const newApiStore = ApiStore.getInstance();
-      newApiStore.setConfig(parsedConfig);
-      newApiStore.setConfigByDefault(0);
-      return newApiStore;
-    });
-  }, []);
+  apiStore.setConfig(parsedConfig);
+  apiStore.setConfigByDefault(0);
 
-  return (
-    <ApiConfigContext.Provider value={apiStore}>
-      {children}
-    </ApiConfigContext.Provider>
-  );
+  return <>{children}</>;
 };
 
 export default ApiConfigProvider;

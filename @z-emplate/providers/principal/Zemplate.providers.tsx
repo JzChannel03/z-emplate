@@ -5,7 +5,6 @@ import ApiConfigProvider from "../ApiServices.provider";
 const ZemplateProvider: ParentComponent = ({ children }) => {
   const queryClient = new QueryClient();
   const apiConfigList = [{ config: { baseUrl: "https://pokeapi.co/api/v2/" } }];
-  console.log("Executions");
 
   return (
     <QueryClientProvider client={queryClient}>

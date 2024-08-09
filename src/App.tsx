@@ -15,7 +15,7 @@ const teMostrare = true;
 
 function App() {
   const [pokemon2, setPokemon2] = useState<Pokemon["results"]>([]);
-  const { get } = useApiService({});
+  const { get } = useApiService();
 
   useEffect(() => {
     get<Pokemon>("pokemon", { limit: 10, offset: 0 }).then((res) => {
@@ -23,7 +23,6 @@ function App() {
     });
   }, []);
 
-  console.log("Pokemon2:", pokemon2);
   return (
     <main>
       <h1>If component:</h1>

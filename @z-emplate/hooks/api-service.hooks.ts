@@ -1,26 +1,27 @@
 import { OptionalParams } from "../interfaces/https";
 import { HttpMethods } from "../services/api-service/api-methods.https";
 import AxiosInstance from "../services/api-service/api-config.axios";
-import { ApiConfigContext } from "@z-emplate/providers/ApiServices.provider";
-import { useContext } from "react";
+import ApiStore from "@z-emplate/services/api-service/api.store";
+import { AxiosInstance as AxiosInstanceType } from "axios";
+import { objectIsEmpty } from "@z-emplate/utils/object.functions";
 
-export const useApiService = ({
-  configSelected,
-}: {
-  configSelected?: number;
-}) => {
-  console.log("configByDefault: ", configSelected);
+export const useApiService = (
+  params: {
+    configSelected?: number;
+  } = {}
+) => {
+  const { configByDefault, setConfigByDefault } = ApiStore.getInstance();
 
-  const { configByDefault, setConfigByDefault } = useContext(ApiConfigContext);
-
-  //TODO: Mejorar lógica de selección de la configuración
-  if (configSelected !== undefined) {
-    setConfigByDefault(configSelected);
+  if (!objectIsEmpty(params)) {
+    const { configSelected } = params;
+    setConfigByDefault(configSelected ?? 0);
   }
-  const axiosInstance = AxiosInstance(
-    configByDefault ?? { config: { baseUrl: "https://pokeapi.co/api/v2/" } }
-  );
-  console.log(configByDefault);
+  const axiosInstance = AxiosInstance(configByDefault);
+
+  return serviceMethods(axiosInstance);
+};
+
+const serviceMethods = (axiosInstance: AxiosInstanceType) => {
   const { GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS } =
     HttpMethods(axiosInstance);
 

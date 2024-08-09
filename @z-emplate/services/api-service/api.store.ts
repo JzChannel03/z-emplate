@@ -1,17 +1,18 @@
 import { HttpInformation } from "@z-emplate/interfaces/https";
 class ApiStore {
   private static instance: ApiStore;
-  private configList: HttpInformation[] = [];
+  private configList: HttpInformation[] = [
+    { config: { baseUrl: "no-base-url//" } },
+  ];
   private defaultConfig: HttpInformation = this.configList[0];
 
   addConfig(apiConfig: HttpInformation) {
-    this.configList.push(apiConfig); // Asignar el nuevo array a this.configList
-    console.log(this.configList);
+    this.configList.push(apiConfig);
   }
 
   setConfig(apiConfig: HttpInformation | HttpInformation[]) {
     const configToArray = Array.isArray(apiConfig) ? apiConfig : [apiConfig];
-    this.configList = configToArray; // Asignar el nuevo array a this.configList
+    this.configList = configToArray;
   }
 
   get configByDefault(): HttpInformation {

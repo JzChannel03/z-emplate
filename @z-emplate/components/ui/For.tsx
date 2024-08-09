@@ -4,6 +4,10 @@ interface Props<T> {
 }
 
 const For = <T,>({ items, children: render }: Props<T>) => {
+  //FIX: Improve this check
+  if (!items) {
+    return <>Loading...</>;
+  }
   return (
     <>
       {items.map((item, index) => {
