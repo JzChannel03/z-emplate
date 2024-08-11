@@ -23,7 +23,6 @@ const ApiConfigProvider: ParentComponent<HttpInformationList> = ({
   }, [httpInformationList]);
 
   apiStore.setConfig(parsedConfig);
-  apiStore.setConfigByDefault(0);
 
   return <>{children}</>;
 };
