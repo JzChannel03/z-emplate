@@ -3,20 +3,19 @@ import { HttpMethods } from "../services/api-service/api-methods.https";
 import AxiosInstance from "../services/api-service/api-config.axios";
 import ApiStore from "@z-emplate/services/api-service/api.store";
 import { AxiosInstance as AxiosInstanceType } from "axios";
-import { objectIsEmpty } from "@z-emplate/utils/object.functions";
 
 export const useApiService = (
   params: {
     configSelected?: number;
   } = {}
 ) => {
-  const { configByDefault, setConfigByDefault } = ApiStore.getInstance();
+  const apiStore = ApiStore.getInstance();
 
-  if (!objectIsEmpty(params)) {
-    const { configSelected } = params;
-    setConfigByDefault(configSelected ?? 0);
-  }
-  const axiosInstance = AxiosInstance(configByDefault);
+  const selected = params?.configSelected ? params.configSelected - 1 : 0;
+
+  const apiStoreConfig = apiStore.getConfigByIndex(selected);
+
+  const axiosInstance = AxiosInstance(apiStoreConfig);
 
   return serviceMethods(axiosInstance);
 };
