@@ -1,7 +1,7 @@
 import axios from "axios";
-import { HttpInformation } from "../../interfaces/https";
+import { HttpConfig } from "../../interfaces/https";
 
-const AxiosInstance = ({ config }: HttpInformation) => {
+const AxiosInstance = (config: HttpConfig) => {
   const axiosConfig = axios.create({
     baseURL: config.baseUrl,
     headers: {

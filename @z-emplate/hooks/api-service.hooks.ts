@@ -6,14 +6,14 @@ import { AxiosInstance as AxiosInstanceType } from "axios";
 
 export const useApiService = (
   params: {
-    configSelected?: number;
+    configName?: string;
   } = {}
 ) => {
   const apiStore = ApiStore.getInstance();
 
-  const selected = params?.configSelected ? params.configSelected - 1 : 0;
+  const selected = params?.configName ? params?.configName : "default";
 
-  const apiStoreConfig = apiStore.getConfigByIndex(selected);
+  const apiStoreConfig = apiStore.getConfigByName(selected);
 
   const axiosInstance = AxiosInstance(apiStoreConfig);
 
