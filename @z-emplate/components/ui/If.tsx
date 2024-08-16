@@ -4,7 +4,7 @@ interface Props {
   altChildren?: React.ReactNode | React.ReactNode[];
 }
 
-const If = ({ children, condition, altChildren }: Props) => {
+const If = ({ children, condition, altChildren = <></> }: Props) => {
   return <>{condition ? children : altChildren}</>;
 };
 

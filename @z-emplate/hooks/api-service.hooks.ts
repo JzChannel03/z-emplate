@@ -1,10 +1,26 @@
-import { OptionalParams } from "../interfaces/https.interfaces";
-import useAxiosConfig from "../services/api-service/api-config.axios";
+import { OptionalParams } from "../interfaces/https";
 import { HttpMethods } from "../services/api-service/api-methods.https";
+import AxiosInstance from "../services/api-service/api-config.axios";
+import ApiStore from "@z-emplate/services/api-service/api.store";
+import { AxiosInstance as AxiosInstanceType } from "axios";
 
-export const useApiService = () => {
-  //TODO: Pass as param the selected api url with the default option selected
-  const axiosInstance = useAxiosConfig();
+export const useApiService = (
+  params: {
+    configSelected?: number;
+  } = {}
+) => {
+  const apiStore = ApiStore.getInstance();
+
+  const selected = params?.configSelected ? params.configSelected - 1 : 0;
+
+  const apiStoreConfig = apiStore.getConfigByIndex(selected);
+
+  const axiosInstance = AxiosInstance(apiStoreConfig);
+
+  return serviceMethods(axiosInstance);
+};
+
+const serviceMethods = (axiosInstance: AxiosInstanceType) => {
   const { GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS } =
     HttpMethods(axiosInstance);
 

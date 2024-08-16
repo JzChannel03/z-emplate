@@ -1,12 +1,9 @@
 import axios from "axios";
-import { useApiStore } from "./api.zustand";
+import { HttpInformation } from "../../interfaces/https";
 
-const useAxiosConfig = () => {
-  //TODO: Pass as param the selected api url with the default option selected
-  const { apiUrl, config } = useApiStore();
-
+const AxiosInstance = ({ config }: HttpInformation) => {
   const axiosConfig = axios.create({
-    baseURL: apiUrl,
+    baseURL: config.baseUrl,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${config.token}`,
@@ -16,4 +13,4 @@ const useAxiosConfig = () => {
   return axiosConfig;
 };
 
-export default useAxiosConfig;
+export default AxiosInstance;
