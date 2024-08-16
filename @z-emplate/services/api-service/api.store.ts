@@ -1,59 +1,42 @@
-import { HttpInformation } from "@z-emplate/interfaces/https";
-class ApiStore {
-  private static instance: ApiStore;
-  private configList: HttpInformation[] = [
-    { config: { baseUrl: "no-base-url//" } },
-  ];
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpInformation, HttpConfig } from "@z-emplate/interfaces/https";
 
-  //TEST this method in execution
-  addConfig(apiConfig: HttpInformation) {
-    this.configList.push(apiConfig);
+class ApiStore<T extends HttpInformation> {
+  private static instance: ApiStore<any>;
+  private configList: T;
+
+  constructor(config: T) {
+    this.configList = config;
   }
 
-  /* test(index: keyof T): number {
-    return 0;
-  } */
-
-  setConfig(apiConfig: HttpInformation | HttpInformation[]) {
-    const configToArray = Array.isArray(apiConfig) ? apiConfig : [apiConfig];
-    this.configList = configToArray;
+  setConfig(apiConfig: T) {
+    this.configList = { ...apiConfig };
   }
 
-  get firstConfig(): HttpInformation {
-    return this.configList[0];
+  get defaultConfig(): HttpConfig {
+    return this.configList.default.config;
   }
 
-  get lastConfig(): HttpInformation {
-    return this.configList[this.configList.length - 1];
-  }
-
-  getConfigByIndex(index: number): HttpInformation {
-    if (index < this.configList.length) {
-      return this.configList[index];
+  getConfigByName<K extends keyof T>(name: K): HttpConfig {
+    if (name in this.configList) {
+      return this.configList[name].config;
     } else {
-      throw new Error("Invalid index");
+      throw new Error("Invalid config name");
     }
   }
 
-  /* public static createInstance(): ApiStore {
+  public static createInstance<U extends HttpInformation>(
+    config: U
+  ): ApiStore<U> {
     if (!ApiStore.instance) {
-      ApiStore.instance = new ApiStore();
+      ApiStore.instance = new ApiStore<U>(config);
     }
     return ApiStore.instance;
   }
 
-  public static getInstance(): ApiStore {
-    return ApiStore.instance;
-  } */
-
-  public static getInstance(): ApiStore {
-    if (!ApiStore.instance) {
-      ApiStore.instance = new ApiStore();
-    }
+  public static getInstance(): ApiStore<any> {
     return ApiStore.instance;
   }
-
-  private constructor() {}
 }
 
 export default ApiStore;

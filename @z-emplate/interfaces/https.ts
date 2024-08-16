@@ -7,10 +7,13 @@ export interface HttpConfig {
   baseUrl: string;
 }
 
-export interface HttpInformation {
-  config: HttpConfig;
+export interface HttpConfig {
+  baseUrl: string;
+  token?: string;
 }
 
+export type HttpInformation = Record<string, { config: HttpConfig }>;
+
 export interface HttpInformationList {
-  httpInformationList: HttpInformation[];
+  httpInformationList: HttpInformation;
 }
