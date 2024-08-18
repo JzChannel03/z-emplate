@@ -21,6 +21,16 @@ class ApiStore<T extends HttpInformation> {
     if (name in this.configList) {
       return this.configList[name].config;
     } else {
+      // TODO: Apply the error store to the api store
+      /* errorStore.addError({
+        error: {
+          title: "Invalid config name",
+          message:
+            "The config name is invalid, please check the name of the config and try again",
+          errorThrow: new Error("Invalid config name"),
+          alertType: "fatal",
+        },
+      }); */
       throw new Error("Invalid config name");
     }
   }
