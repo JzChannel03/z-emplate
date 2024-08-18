@@ -1,28 +1,39 @@
 import { z } from "zod";
 import ApiStore from "@z-emplate/services/api-service/api.store";
-import { HttpInformationList } from "@z-emplate/interfaces/https";
+import { HttpInformation } from "@z-emplate/interfaces/https";
 import { ParentComponent } from "@z-emplate/interfaces/component";
 import { useMemo } from "react";
 
-const ApiConfigProvider: ParentComponent<HttpInformationList> = ({
-  children,
-  httpInformationList,
-}) => {
-  const apiStore = ApiStore.getInstance();
+// Define el esquema para HttpConfig
+const httpConfigSchema = z.object({
+  baseUrl: z.string().url(),
+  token: z.string().optional(),
+});
 
+// Define el esquema para HttpInformation
+const httpInformationSchema = z.record(
+  z.object({
+    config: httpConfigSchema,
+  })
+);
+
+const ApiConfigProvider: ParentComponent<{
+  httpInformationList: HttpInformation;
+}> = ({ children, httpInformationList }) => {
+  // Validar con Zod
   const parsedConfig = useMemo(() => {
-    const configSchema = z.array(
-      z.object({
-        config: z.object({
-          baseUrl: z.string().url(),
-          token: z.string().optional(),
-        }),
-      })
-    );
-    return configSchema.parse(httpInformationList);
+    try {
+      return httpInformationSchema.parse(httpInformationList);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        console.error("Validation failed:", error.errors);
+      }
+      return {}; // Devuelve un objeto vacío en caso de error de validación
+    }
   }, [httpInformationList]);
 
-  apiStore.setConfig(parsedConfig);
+  // Crear la instancia de ApiStore con la configuración inicial
+  ApiStore.createInstance(parsedConfig);
 
   return <>{children}</>;
 };
