@@ -7,7 +7,7 @@ import {
 import { ErrorHandlerProps } from "@z-emplate/interfaces/error";
 
 export const getAlertProperties = (
-  alertType: ErrorHandlerProps["alertType"]
+  alertType: ErrorHandlerProps["error"]["alertType"]
 ): {
   icon: JSX.Element;
   color: string;
@@ -18,7 +18,7 @@ export const getAlertProperties = (
     case "fatal":
       return {
         icon: <FatalIcon />,
-        color: "text-red-900",
+        color: "text-white",
         closable: false,
         backgroundColor: "bg-[#9a8c8c]",
       };
@@ -32,7 +32,7 @@ export const getAlertProperties = (
     case "error":
       return {
         icon: <ErrorIcon />,
-        color: "text-red-500",
+        color: "text-red-600",
         closable: false,
         backgroundColor: "bg-[#9a8c8c]",
       };
@@ -47,7 +47,9 @@ export const getAlertProperties = (
   }
 };
 
-export const getAlertStyle = (alertType: ErrorHandlerProps["alertType"]) => {
+export const getAlertStyle = (
+  alertType: ErrorHandlerProps["error"]["alertType"]
+) => {
   let alertStyle;
   switch (alertType) {
     case "info":
@@ -62,7 +64,7 @@ export const getAlertStyle = (alertType: ErrorHandlerProps["alertType"]) => {
         "bg-yellow-800 bottom-2/4 left-2/4 text-white w-4/6 h-3/6 rounded-xl transform -translate-x-2/4 translate-y-2/4 shadow-xl";
       break;
     case "fatal":
-      alertStyle = "bg-red-500 top-0 text-white w-screen h-screen";
+      alertStyle = "bg-red-900 top-0 text-white w-screen h-screen";
       break;
   }
   return alertStyle;

@@ -4,5 +4,6 @@ export interface ErrorHandlerProps {
     message: string;
     errorThrow: Error;
     alertType: "info" | "error" | "warning" | "fatal";
+    id: string;
   };
 }

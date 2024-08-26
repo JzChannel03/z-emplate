@@ -16,7 +16,7 @@ const ErrorHandler = ({ error }: ErrorHandlerProps) => {
 
   return (
     <div className={clsx(alertStyle, "fixed text-white p-8")}>
-      <div className="relative w-full h-full flex flex-row gap-8">
+      <div className="relative w-full h-full flex flex-col lg:flex-row lg:gap-8">
         <If condition={closable}>
           <div className="absolute -right-0.5 -top-1 text-2xl cursor-pointer hover:text-gray-400 duration-300">
             <CloseIcon />

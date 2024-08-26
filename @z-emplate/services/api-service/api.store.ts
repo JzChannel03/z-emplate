@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpInformation, HttpConfig } from "@z-emplate/interfaces/https";
+import useErrorListStore from "@z-emplate/stores/error-handler.store";
 
 class ApiStore<T extends HttpInformation> {
   private static instance: ApiStore<any>;
@@ -18,19 +19,30 @@ class ApiStore<T extends HttpInformation> {
   }
 
   getConfigByName<K extends keyof T>(name: K): HttpConfig {
+    const { addError, removeById } = useErrorListStore.getState();
+    const id = name.toString();
+
     if (name in this.configList) {
+      // Usar setTimeout para evitar la actualización durante el renderizado
+      setTimeout(() => {
+        removeById(id);
+      }, 0);
+
       return this.configList[name].config;
     } else {
-      // TODO: Apply the error store to the api store
-      /* errorStore.addError({
-        error: {
-          title: "Invalid config name",
-          message:
-            "The config name is invalid, please check the name of the config and try again",
-          errorThrow: new Error("Invalid config name"),
-          alertType: "fatal",
-        },
-      }); */
+      // Usar setTimeout para evitar la actualización durante el renderizado
+      setTimeout(() => {
+        addError({
+          error: {
+            title: "Invalid config name",
+            message: `The config name '${name.toString()}' is invalid, please check the name of the config passed to the useApiService, or check the naming in your ApiServiceProvider, and try again. If you are using the default config, please check the naming in your ApiServiceProvider. (Refresh the page when you fix this error)`,
+            errorThrow: new Error("Invalid config name"),
+            alertType: "fatal",
+            id,
+          },
+        });
+      }, 0);
+
       throw new Error("Invalid config name");
     }
   }

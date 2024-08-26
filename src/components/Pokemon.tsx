@@ -22,7 +22,7 @@ function Pokemon() {
     <div>
       <For items={pokemon2}>
         {(pokemon) => (
-          <div>
+          <div key={pokemon.name}>
             <p>{pokemon.name}</p>
           </div>
         )}

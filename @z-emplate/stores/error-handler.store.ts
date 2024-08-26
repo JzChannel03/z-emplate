@@ -5,7 +5,8 @@ interface IErrorListStoreStore {
   errorList: ErrorHandlerProps[];
   addError: (error: ErrorHandlerProps) => void;
   orderByAlertType: () => void;
-  getFirstError: () => ErrorHandlerProps | null;
+  getFirstError: () => ErrorHandlerProps;
+  removeById: (id: string) => void; // Función para eliminar el error
 }
 
 const useErrorListStore = create<IErrorListStoreStore>()((set, get) => ({
@@ -36,6 +37,12 @@ const useErrorListStore = create<IErrorListStoreStore>()((set, get) => ({
   getFirstError: () => {
     const errorList = get().errorList;
     return errorList.length > 0 ? errorList[0] : ({} as ErrorHandlerProps);
+  },
+
+  removeById: (id: string) => {
+    set((state) => ({
+      errorList: state.errorList.filter((error) => error.error.id !== id),
+    }));
   },
 }));
 
