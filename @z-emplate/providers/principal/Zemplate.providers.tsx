@@ -1,17 +1,16 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ParentComponent } from "../../interfaces/component";
 import ApiConfigProvider from "../ApiServices.provider";
+import { HttpInformation } from "@z-emplate/interfaces/https";
 
-const apiConfigList = {
-  default: {
-    config: { baseUrl: "https://pokeapi.co/api/v2/" },
-  },
-  jsonPlaceholder: {
-    config: { baseUrl: "https://jsonplaceholder.typicode.com/" },
-  },
-};
+interface ZemplateProviderProps {
+  apiConfigList: HttpInformation;
+}
 
-const ZemplateProvider: ParentComponent = ({ children }) => {
+const ZemplateProvider: ParentComponent<ZemplateProviderProps> = ({
+  children,
+  apiConfigList,
+}) => {
   const queryClient = new QueryClient();
 
   return (

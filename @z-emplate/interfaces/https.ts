@@ -12,7 +12,10 @@ export interface HttpConfig {
   token?: string;
 }
 
-export type HttpInformation = Record<string, { config: HttpConfig }>;
+export type HttpInformation = { default: { config: HttpConfig } } & Record<
+  string,
+  { config: HttpConfig }
+>;
 
 export interface HttpInformationList {
   httpInformationList: HttpInformation;

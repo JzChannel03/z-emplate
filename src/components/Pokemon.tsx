@@ -9,7 +9,7 @@ interface IPokemonData {
 
 function Pokemon() {
   const [pokemon2, setPokemon2] = useState<IPokemonData["results"]>([]);
-  //TODO: Select the config by the name of the api
+
   const { get } = useApiService();
 
   useEffect(() => {

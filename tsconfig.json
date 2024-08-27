@@ -24,6 +24,6 @@
       "@z-emplate/*": ["./@z-emplate/*"]
     }
   },
-  "include": ["src", "@z-emplate"],
+  "include": ["src", "@z-emplate", "env.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
