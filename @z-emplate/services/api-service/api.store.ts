@@ -19,27 +19,20 @@ class ApiStore<T extends HttpInformation> {
   }
 
   getConfigByName<K extends keyof T>(name: K): HttpConfig {
-    const { addError, removeById } = useErrorListStore.getState();
+    const { addError } = useErrorListStore.getState();
     const id = name.toString();
 
     if (name in this.configList) {
-      // Usar setTimeout para evitar la actualización durante el renderizado
-      setTimeout(() => {
-        removeById(id);
-      }, 0);
-
       return this.configList[name].config;
     } else {
       // Usar setTimeout para evitar la actualización durante el renderizado
       setTimeout(() => {
         addError({
-          error: {
-            title: "Invalid config name",
-            message: `The config name '${name.toString()}' is invalid, please check the name of the config passed to the useApiService, or check the naming in your ApiServiceProvider, and try again. If you are using the default config, please check the naming in your ApiServiceProvider. (Refresh the page when you fix this error)`,
-            errorThrow: new Error("Invalid config name"),
-            alertType: "fatal",
-            id,
-          },
+          title: "Invalid config name",
+          message: `The config name '${name.toString()}' is invalid, please check the name of the config passed to the useApiService, or check the naming in your ApiServiceProvider, and try again. If you are using the default config, please check the naming in your ApiServiceProvider.`,
+          errorThrow: new Error("Invalid config name"),
+          alertType: "fatal",
+          id,
         });
       }, 0);
 

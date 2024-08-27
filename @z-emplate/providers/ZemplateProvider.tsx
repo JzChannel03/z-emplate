@@ -18,12 +18,11 @@ const apiConfigList = {
 const ZemplateProvider: ParentComponent = ({ children }) => {
   const queryClient = new QueryClient();
   const { getFirstError } = useErrorListStore();
-  console.log(getFirstError());
-
+  const error = getFirstError();
   return (
     <QueryClientProvider client={queryClient}>
       <ApiConfigProvider httpInformationList={apiConfigList}>
-        <ErrorBoundary fallback={<ErrorHandler error={getFirstError()} />}>
+        <ErrorBoundary fallback={<ErrorHandler error={error} />}>
           {children}
         </ErrorBoundary>
       </ApiConfigProvider>
