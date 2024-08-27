@@ -3,7 +3,7 @@ import { useApiService } from "@z-emplate/hooks/api-service.hooks";
 import { useEffect } from "react";
 
 function Countries() {
-  const { get } = useApiService({ configName: "jsonPlaceholder" });
+  const { get } = useApiService({ configName: "jsonPlaceholde" });
 
   useEffect(() => {
     get("todos/1").then((res) => {

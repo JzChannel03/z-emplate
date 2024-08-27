@@ -23,9 +23,7 @@ const ZemplateProvider: ParentComponent = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ApiConfigProvider httpInformationList={apiConfigList}>
-        <ErrorBoundary
-          fallback={<ErrorHandler error={getFirstError()?.error} />}
-        >
+        <ErrorBoundary fallback={<ErrorHandler error={getFirstError()} />}>
           {children}
         </ErrorBoundary>
       </ApiConfigProvider>

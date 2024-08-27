@@ -17,7 +17,7 @@ function RefreshPageButton() {
 
 function ErrorMessages({
   error: { title, message, alertType },
-}: Readonly<ErrorHandlerProps>) {
+}: Readonly<{ error: ErrorHandlerProps }>) {
   const { color, icon, backgroundColor } = getAlertProperties(alertType);
   return (
     <div className="h-full w-full lg:w-3/6">

@@ -28,8 +28,8 @@ const useErrorListStore = create<IErrorListStoreStore>()((set, get) => ({
     };
 
     set((state) => ({
-      errorList: state.errorList.sort((a, b) => {
-        return priority[a.error.alertType] - priority[b.error.alertType];
+      errorList: state.errorList.toSorted((a, b) => {
+        return priority[a.alertType] - priority[b.alertType];
       }),
     }));
   },
@@ -41,7 +41,7 @@ const useErrorListStore = create<IErrorListStoreStore>()((set, get) => ({
 
   removeById: (id: string) => {
     set((state) => ({
-      errorList: state.errorList.filter((error) => error.error.id !== id),
+      errorList: state.errorList.filter((error) => error.id !== id),
     }));
   },
 }));

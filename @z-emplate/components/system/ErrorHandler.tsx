@@ -6,10 +6,13 @@ import ErrorMessages from "./ErrorMessages";
 import ErrorStack from "./ErrorStack";
 import { getAlertProperties, getAlertStyle } from "@z-emplate/handlers/error";
 
-const ErrorHandler = ({ error }: ErrorHandlerProps) => {
+const ErrorHandler = ({ error }: Readonly<{ error: ErrorHandlerProps }>) => {
+  console.log(error);
   if (!error) return <></>;
 
-  const { errorThrow, alertType } = error;
+  const { alertType, errorThrow } = error;
+
+  console.log(errorThrow, alertType);
 
   const alertStyle = getAlertStyle(alertType);
   const { closable } = getAlertProperties(alertType);
